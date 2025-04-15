@@ -15,9 +15,10 @@ public class AssociadoService {
         this.repository = repository;
     }
 
-    public Associado salvar(AssociadoDTO dto) {
+    public AssociadoDTO salvar(AssociadoDTO dto) {
         Associado associado = AssociadoMapper.toEntity(dto);
-        return repository.save(associado);
+        Associado save = repository.save(associado);
+        return AssociadoMapper.toDTO(save);
     }
 
     public boolean existePorCpf(String cpf) {

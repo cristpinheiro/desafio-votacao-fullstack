@@ -17,14 +17,15 @@ public class PautaService {
         this.repository = repository;
     }
 
-    public Pauta criarPauta(PautaDTO dto) {
+    public PautaDTO criarPauta(PautaDTO dto) {
         Pauta pauta = PautaMapper.toEntity(dto);
         pauta.setInicio(null); // Ainda não iniciada
         pauta.setFim(null);
-        return repository.save(pauta);
+        Pauta save = repository.save(pauta);
+        return PautaMapper.toDto(save);
     }
 
-    public Pauta abrirSessao(Long idPauta, Integer duracaoEmMinutos) {
+    public Pauta abrirSessao(Long idPauta, Long duracaoEmMinutos) {
         Pauta pauta = repository.findById(idPauta).orElseThrow(() ->
                 new RuntimeException("Pauta não encontrada"));
 

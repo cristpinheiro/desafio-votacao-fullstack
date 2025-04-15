@@ -11,4 +11,11 @@ public class PautaMapper {
         pauta.setDescricao(dto.getDescricao());
         return pauta;
     }
+
+    public static PautaDTO toDto(Pauta pauta) {
+        PautaDTO dto = new PautaDTO();
+        dto.setTitulo(pauta.getTitulo());
+        dto.setDescricao(pauta.getDescricao());
+        return dto;
+    }
 }
