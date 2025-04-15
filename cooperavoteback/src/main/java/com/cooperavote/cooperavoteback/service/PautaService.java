@@ -7,6 +7,7 @@ import com.cooperavote.cooperavoteback.repository.PautaRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class PautaService {
@@ -26,9 +27,11 @@ public class PautaService {
     }
 
     public Pauta abrirSessao(Long idPauta, Long duracaoEmMinutos) {
-        Pauta pauta = repository.findById(idPauta).orElseThrow(() ->
-                new RuntimeException("Pauta não encontrada"));
-
+        Optional<Pauta> pautaOptional = repository.findById(idPauta);
+        if (pautaOptional.isEmpty()) {
+            throw new RuntimeException("Pauta não encontrada");
+        }
+        Pauta pauta = pautaOptional.get();
         if (pauta.getInicio() != null) {
             throw new RuntimeException("Sessão de votação já está aberta para esta pauta");
         }
