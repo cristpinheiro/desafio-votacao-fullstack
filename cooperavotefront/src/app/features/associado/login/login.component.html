@@ -1,0 +1,19 @@
+<div class="container">
+    <mat-card>
+      <h2>Entrar</h2>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nome</mat-label>
+          <input matInput formControlName="nome" />
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>CPF</mat-label>
+          <input matInput formControlName="cpf" maxlength="11" />
+        </mat-form-field>
+  
+        <button mat-raised-button type="submit">Entrar</button>
+      </form>
+    </mat-card>
+  </div>  
+  

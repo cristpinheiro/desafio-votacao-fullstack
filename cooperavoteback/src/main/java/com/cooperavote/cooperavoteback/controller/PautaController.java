@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/pautas")
 @RequiredArgsConstructor
@@ -26,5 +28,11 @@ public class PautaController {
             @RequestParam(required = false) Long duracaoEmMinutos) {
         pautaService.abrirSessao(id, duracaoEmMinutos);
         return ResponseEntity.ok("Sessão aberta com sucesso!");
+    }
+
+    @GetMapping
+    public ResponseEntity<List<PautaDTO>> listar() {
+        final List<PautaDTO> pautasDto = pautaService.buscarTodas();
+        return ResponseEntity.ok(pautasDto);
     }
 }

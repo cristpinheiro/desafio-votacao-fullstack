@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Criar Nova Pauta</h2>
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field appearance="fill" class="w-100">
+    <mat-label>Título</mat-label>
+    <input matInput formControlName="titulo" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="w-100">
+    <mat-label>Descrição</mat-label>
+    <textarea matInput formControlName="descricao"></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="fechar()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="salvar()" [disabled]="form.invalid">
+    Salvar
+  </button>
+</mat-dialog-actions>

@@ -6,6 +6,8 @@ import com.cooperavote.cooperavoteback.mapper.AssociadoMapper;
 import com.cooperavote.cooperavoteback.repository.AssociadoRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class AssociadoService {
 
@@ -17,12 +19,20 @@ public class AssociadoService {
 
     public AssociadoDTO salvar(AssociadoDTO dto) {
         Associado associado = AssociadoMapper.toEntity(dto);
-        Associado save = repository.save(associado);
-        return AssociadoMapper.toDTO(save);
+        var associadoSalvo = findByCpf(dto.getCpf());
+        if(associadoSalvo.isEmpty()) {
+            Associado save = repository.save(associado);
+            return AssociadoMapper.toDTO(save);
+        }
+        return AssociadoMapper.toDTO(associadoSalvo.get());
     }
 
     public boolean existePorCpf(String cpf) {
-        return repository.findByCpf(cpf).isPresent();
+        return findByCpf(cpf).isPresent();
+    }
+
+    private Optional<Associado> findByCpf(String cpf) {
+        return repository.findByCpf(cpf);
     }
 
     public Associado buscarPorCpf(String cpf) {

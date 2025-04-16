@@ -7,6 +7,8 @@ import com.cooperavote.cooperavoteback.repository.PautaRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -47,5 +49,14 @@ public class PautaService {
     public Pauta buscarPorId(Long id) {
         return repository.findById(id).orElseThrow(() ->
                 new RuntimeException("Pauta não encontrada"));
+    }
+
+    public List<PautaDTO> buscarTodas() {
+        final List<Pauta> pautas = repository.findAll();
+        final List<PautaDTO> pautaDTOS = new ArrayList<>();
+        pautas.forEach(pauta -> {
+            pautaDTOS.add(PautaMapper.toDto(pauta));
+        });
+        return pautaDTOS;
     }
 }

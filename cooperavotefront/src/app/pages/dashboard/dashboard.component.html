@@ -1,0 +1,18 @@
+<div class="container">
+  <h1>Pautas</h1>
+
+  <button mat-raised-button color="primary" (click)="abrirDialogCriarPauta()">
+    Criar Pauta
+  </button>
+
+  <mat-list *ngIf="pautas.length > 0">
+    <mat-list-item *ngFor="let pauta of pautas">
+      <div class="pauta-item">
+        <strong>{{ pauta.titulo }}</strong>
+        <span> - {{ pauta.descricao }}</span>
+      </div>
+    </mat-list-item>
+  </mat-list>
+
+  <p *ngIf="pautas.length === 0">Nenhuma pauta encontrada.</p>
+</div>
