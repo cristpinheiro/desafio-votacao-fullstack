@@ -40,7 +40,8 @@ public class PautaService {
         pauta.setInicio(agora);
         pauta.setFim(agora.plusMinutes(duracaoEmMinutos != null ? duracaoEmMinutos : 1));
 
-        return repository.save(pauta);
+        Pauta pautaSalva = repository.save(pauta);
+        return pautaSalva;
     }
 
     public Pauta buscarPorId(Long id) {

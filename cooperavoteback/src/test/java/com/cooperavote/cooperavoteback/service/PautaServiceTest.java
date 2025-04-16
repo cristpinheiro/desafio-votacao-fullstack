@@ -94,6 +94,38 @@ public class PautaServiceTest {
     }
 
     @Test
+    public void testAbrirSessaoPauta() {
+        // Arrange
+        Long idPauta = 1L;
+        Pauta pauta = new Pauta();
+        pauta.setId(idPauta);
+
+        Pauta pautaSalva = new Pauta();
+        pautaSalva.setId(idPauta);
+        pautaSalva.setInicio(LocalDateTime.now());
+        pautaSalva.setFim(LocalDateTime.now().plusMinutes(1));
+
+        Pauta pautaExpected = new Pauta();
+        pautaExpected.setId(idPauta);
+        pautaExpected.setInicio(LocalDateTime.now());
+        pautaExpected.setFim(LocalDateTime.now().plusMinutes(1));
+
+        when(pautaRepository.findById(idPauta)).thenReturn(Optional.of(pauta));
+        when(pautaRepository.save(any())).thenReturn(pautaSalva);
+
+        // Act & Assert
+        Pauta result = pautaService.abrirSessao(idPauta, 10L);
+
+        assertEquals(result.getId(), pautaExpected.getId());
+        assertEquals(result.getTitulo(), pautaExpected.getTitulo());
+        assertEquals(result.getDescricao(), pautaExpected.getDescricao());
+        assertEquals(result.getInicio(), pautaExpected.getInicio());
+        assertEquals(result.getFim(), pautaExpected.getFim());
+
+        verify(pautaRepository, times(1)).findById(idPauta);
+    }
+
+    @Test
     public void testBuscarPorIdEncontrado() {
         // Arrange
         Long id = 1L;
